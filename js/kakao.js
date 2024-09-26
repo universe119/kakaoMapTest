@@ -1,4 +1,5 @@
 const mapContainer = document.querySelector("#map");
+const btnToggle = document.querySelector(".trafficToggle");
 
 const mapOption = {
 	center: new kakao.maps.LatLng(37.58206195368533, 127.00013868670247),
@@ -12,21 +13,27 @@ const mapOption = {
 // 브라우저 리사이즈 될때마다 map 변수에 변경된 값을 재반영해야 되므로 let방식으로 변수 선언
 let map = new kakao.maps.Map(mapContainer, mapOption);
 let marker = new kakao.maps.Marker({ position: mapOption.center });
-marker.setMap(map);
-
-window.addEventListener("resize", () => {
-	// 기존 map, marker 변수에 변경된 인스턴스 정보값을 덮어쓰기 처리
-	map = new kakao.maps.Map(mapContainer, mapOption);
-	marker.setMap(map);
-});
-
 const mapTypeControl = new kakao.maps.MapTypeControl();
-
 const zoomControl = new kakao.maps.ZoomControl();
 
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+marker.setMap(map);
+
+window.addEventListener("resize", () => {
+	mapContainer.innerHTML = "";
+	// 기존 map, marker 변수에 변경된 인스턴스 정보값을 덮어쓰기 처리
+	map = new kakao.maps.Map(mapContainer, mapOption);
+	marker.setMap(map);
+
+	//리사이즈 될때마다 컨트롤 패널 다시 추가
+	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+	// 리사이즈시 강제 토글버튼 초기화
+	btnToggle.classList.remove("on");
+	btnToggle.innerText = "Traffic ON";
+});
 
 // const [btnOn, btnOff] = document.querySelectorAll("nav button");
 
@@ -39,8 +46,6 @@ map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 // btnOff.addEventListener("click", () =>
 // 	map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC)
 // );
-
-const btnToggle = document.querySelector(".trafficToggle");
 
 btnToggle.addEventListener("click", (e) => {
 	e.target.classList.toggle("on");
