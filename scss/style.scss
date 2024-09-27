@@ -40,19 +40,16 @@ main {
       position: absolute;
       top: 0px;
       left: 0px;
-      // 이렇게 하려고 하는거니깐 on으로 바꾼다.
-      // &#map {
-      //   display: none;
-      // }  
-      // &#view {
-      //   display: block;
-      // }
-      display: none;
+      opacity: 0;
+			z-index: 1;
+      // display: none;
       &.on {
-        display: block;
+        opacity: 1;
+				z-index: 2;
+        //display: block을 넣으니깐 로드뷰화면이 깨지는현상?
+        // display: block;
       }
     }
-    
-
   }
 }
+//미션 - viewToggle 버튼 클릭시 frame안쪽의 figure요소에 on을 바꿔치기 하면서 토글 기능 적용 
