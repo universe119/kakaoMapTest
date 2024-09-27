@@ -9,8 +9,8 @@ main {
     color: #333;
     margin-bottom: 70px;
   }
-
-  .trafficToggle {
+  
+  .trafficToggle, .viewToggle {
     display: inline-block;
     padding: 10px 16px;
     border: none;
@@ -27,9 +27,32 @@ main {
     box-shadow: 10px 10px 20px rgba(209, 73, 255, 0.5);
     }
   }
-  #map, #view{
+  .frame {
     width: 100%;
     height: 60vh;
     background: #000;
+    margin-bottom: 30px;
+    position: relative;
+
+    figure {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      // 이렇게 하려고 하는거니깐 on으로 바꾼다.
+      // &#map {
+      //   display: none;
+      // }  
+      // &#view {
+      //   display: block;
+      // }
+      display: none;
+      &.on {
+        display: block;
+      }
+    }
+    
+
   }
 }
